@@ -25,12 +25,12 @@ class _SignInScreenState extends State<SignInScreen> {
             "441373015438-hnlt1gj799qvr1nrkuooptse55q9nnt9.apps.googleusercontent.com",
       );
       final account = await signIn.authenticate();
-      if (account == null) {
-        setState(() {
-          error = 'user cancelled';
-        });
-        return null;
-      }
+      // if (account == null) {
+      //   setState(() {
+      //     error = 'user cancelled';
+      //   });
+      //   return null;
+      // }
       final auth = account.authentication;
       final credential = GoogleAuthProvider.credential(idToken: auth.idToken);
       final userCredential =
@@ -54,6 +54,7 @@ class _SignInScreenState extends State<SignInScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            
             SignInButton(Buttons.google, text: "Sign in with Google",
                 onPressed: () async {
               User? user = await handleSignIn();

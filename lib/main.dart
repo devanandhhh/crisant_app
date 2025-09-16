@@ -1,5 +1,4 @@
 import 'package:crisant_app/firebase_options.dart';
-import 'package:crisant_app/presentation/sign_in_screen/sign_in_screen.dart';
 import 'package:crisant_app/presentation/splash_screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

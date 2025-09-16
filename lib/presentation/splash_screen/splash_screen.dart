@@ -32,3 +32,4 @@ class SplashScreen extends StatelessWidget {
 Future<void> knavigatorPushReplacement(BuildContext context, Widget screen) {
   return Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx) => screen));
 }
+
