@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "441373015438",
+    "project_id": "signin-48c1d",
+    "storage_bucket": "signin-48c1d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441373015438:android:a41ae1f35850ca1ca1f8df",
+        "android_client_info": {
+          "package_name": "com.example.crisant_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441373015438-bhc7f2sdhlb6205f5raa535satb9juaj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.crisant_app",
+            "certificate_hash": "94019b3f6658d0a3f34fe77b222293bb9fb465fd"
+          }
+        },
+        {
+          "client_id": "441373015438-hnlt1gj799qvr1nrkuooptse55q9nnt9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB79zY5LYyPKUzmtUtGszxph6k_frhfqcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441373015438-hnlt1gj799qvr1nrkuooptse55q9nnt9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
