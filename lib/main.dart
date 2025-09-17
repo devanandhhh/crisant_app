@@ -2,10 +2,12 @@ import 'package:crisant_app/data/api/get_all_user_service.dart';
 import 'package:crisant_app/firebase_options.dart';
 import 'package:crisant_app/l10n/app_localizations.dart';
 import 'package:crisant_app/others/network_checker.dart';
+import 'package:crisant_app/others/notification_service.dart';
 import 'package:crisant_app/presentation/bloc/delete_user/delete_user_cubit.dart';
 import 'package:crisant_app/presentation/bloc/localizations/locale_cubit.dart';
 import 'package:crisant_app/presentation/splash_screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -25,7 +27,9 @@ void main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await initializeDatabase();
-
+  final notificationService = NotificationService();
+  await notificationService.initFCM();
+  FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
   runApp(MyApp(connectivityService: connectivityService)); // Pass it here
 }
 
@@ -76,4 +80,9 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+}
+Future<void>handleBackgroundMessage(RemoteMessage message) async {
+  print("Handling a background message: ${message.messageId}");
+  // You can perform additional actions here, like showing a notification
+  // or updating local data based on the message content.
 }
