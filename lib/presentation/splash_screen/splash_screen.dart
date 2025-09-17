@@ -6,37 +6,6 @@ import 'package:crisant_app/presentation/sign_in_screen/sign_in_screen.dart';
 import 'package:crisant_app/presentation/widgets/custom_snakbar.dart';
 import 'package:flutter/material.dart';
 
-// class SplashScreen extends StatelessWidget {
-//    SplashScreen({super.key});
-// final connectivityService = ConnectivityService();
-//   @override
-//   Widget build(BuildContext context) {
-//     Future.delayed(Duration(seconds: 3),()async{
-//       final sharedPrefz = await SharedPreference.getboolValue();
-//       if(sharedPrefz!=true){
-//         knavigatorPushReplacement(context, SignInScreen());
-//       }else{
-//         knavigatorPushReplacement(context, HomeScreen());
-//       }
-//     });
-//     return Scaffold(
-//       body: Center(
-//         child: Container(
-//           height: 150,
-//           width: 150,
-//           child: Icon(Icons.flutter_dash,size: 100,color: Colors.white,),
-//           decoration: BoxDecoration(
-//               color: Colors.red[400], borderRadius: BorderRadius.circular(10)),
-//         ),
-//       ),
-//     );
-//   }
-  
-// }
-// Future<void> knavigatorPushReplacement(BuildContext context, Widget screen) {
-//   return Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx) => screen));
-// }
-
 class SplashScreen extends StatelessWidget {
   final ConnectivityService connectivityService;
 
@@ -47,38 +16,44 @@ class SplashScreen extends StatelessWidget {
     Future.delayed(const Duration(seconds: 3), () async {
       if (!connectivityService.isConnected.value) {
         // If no network, navigate to NoNetworkScreen
-        knavigatorPushReplacement(context, NoNetworkPage(connectivityService: connectivityService,));
+        knavigatorPushReplacement(
+            context,
+            NoNetworkPage(
+              connectivityService: connectivityService,
+            ));
         return;
       }
 
       final sharedPrefz = await SharedPreference.getboolValue();
       if (sharedPrefz != true) {
-        knavigatorPushReplacement(context, SignInScreen(connectivityService: connectivityService,));
+        knavigatorPushReplacement(
+            context,
+            SignInScreen(
+              connectivityService: connectivityService,
+            ));
       } else {
-        knavigatorPushReplacement(context, HomeScreen(connectivityService: connectivityService,));
+        knavigatorPushReplacement(
+            context,
+            HomeScreen(
+              connectivityService: connectivityService,
+            ));
       }
     });
 
     return Scaffold(
       body: Center(
-        child: Text("Welcome to Crisant App", style:abeezeeStyle(fontSize: 26 ,fontWeight: FontWeight.bold,color: const Color.fromARGB(255, 41, 187, 143)),),
-        // child: Container(
-        //   height: 150,
-        //   width: 150,
-        //   child: const Icon(
-        //     Icons.flutter_dash,
-        //     size: 100,
-        //     color: Colors.white,
-        //   ),
-        //   decoration: BoxDecoration(
-        //     color: Colors.red[400],
-        //     borderRadius: BorderRadius.circular(10),
-        //   ),
-        // ),
+        child: Text(
+          "Welcome to Crisant App",
+          style: abeezeeStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+              color: const Color.fromARGB(255, 41, 187, 143)),
+        ),
       ),
     );
   }
 }
+
 Future<void> knavigatorPushReplacement(BuildContext context, Widget screen) {
   return Navigator.pushReplacement(
     context,

@@ -14,8 +14,8 @@ class ViewProfile extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context)!.profile,
-          style: abeezeeStyle(fontSize: 25),
+          AppLocalizations.of(context)!.profile, 
+          style: abeezeeStyle(fontSize: 25,color: Colors.blueGrey,fontWeight: FontWeight.bold),
         ),
       ),
       body: Center(
@@ -40,11 +40,19 @@ class ViewProfile extends StatelessWidget {
                     ),
                   ),
                   Text(
+                    AppLocalizations.of(context)!.userName,
+                    style: abeezeeStyle(),
+                  ), 
+                  Text(
                     "${user.firstName ?? ''} ${user.lastName ?? ''}",
                     style: GoogleFonts.aBeeZee(
-                      fontSize: 20,
+                      fontSize: 20,color: Colors.grey,
                       fontWeight: FontWeight.bold,
                     ),
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.userEmail,
+                    style: abeezeeStyle(),
                   ),
                   Text(
                     user.email ?? 'No Email',
@@ -56,53 +64,7 @@ class ViewProfile extends StatelessWidget {
                 ],
               ),
             ),
-            // Container(
-            //     decoration: BoxDecoration(
-            //         color: Colors.red[300],
-            //         borderRadius: BorderRadius.circular(10)),
-            //     child: TextButton(
-            //         onPressed: () async {
-            //           //calling Clear data from sqflite
-            //           await clearUser();
-            //           //push to login page
-            //           knavigatorPushReplacement(
-            //             context,
-            //             SignInScreen(),
-            //           );
-            //         },
-            //         child: TextButton(
-            //           child: Text("Log Out",
-            //               style: TextStyle(color: Colors.black)),
-            //           onPressed: () => showDialog(
-            //             context: context,
-            //             builder: (ctx) => AlertDialog(
-            //               title: Text("Log Out"),
-            //               content: Text("Are you sure you want to log out?"),
-            //               actions: [
-            //                 TextButton(
-            //                   onPressed: () {
-            //                     Navigator.of(ctx).pop();
-            //                   },
-            //                   child: Text("Cancel"),
-            //                 ),
-            //                 TextButton(
-            //                   onPressed: () async {
-            //                     //calling Clear data from sqflite
-            //                     await clearUser();
-            //                     //push to login page
-            //                     Navigator.pushAndRemoveUntil(
-            //                       context,
-            //                       MaterialPageRoute(
-            //                           builder: (context) => SignInScreen()),
-            //                       (route) => false,
-            //                     );
-            //                   },
-            //                   child: Text("Log Out"),
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //         )))
+            
           ],
         ),
       ),

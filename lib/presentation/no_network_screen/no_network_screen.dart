@@ -1,22 +1,5 @@
-// import 'package:flutter/material.dart';
 
-// class NoNetworkPage extends StatelessWidget {
-//   const NoNetworkPage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text("No Network")),
-//       body: Center(
-//         child: Text(
-//           "No internet connection. Please check your network.",
-//           style: TextStyle(fontSize: 18),
-//           textAlign: TextAlign.center,
-//         ),
-//       ),
-//     );
-//   }
-// }
+import 'package:crisant_app/presentation/widgets/custom_app_bar.dart';
 import 'package:crisant_app/presentation/widgets/custom_snakbar.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -128,44 +111,4 @@ class _NoNetworkPageState extends State<NoNetworkPage> {
       ),
     );
   }
-}
-class CustomAppBarWidget extends StatelessWidget
-    implements PreferredSizeWidget {
-  final String title;
-  final bool removeBackBtn;
-  final List<Widget>? actions;
-
-  const CustomAppBarWidget({
-    super.key,
-    required this.title,
-    this.actions,
-    this.removeBackBtn = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      centerTitle: true,
-      leading: removeBackBtn
-          ? null
-          : IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.arrow_back_ios,
-                //size: 18.sp,
-              ),
-            ),
-      title: Text(
-        title,
-        style: TextStyle(fontSize: 18),
-      ),
-      actions: actions,
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

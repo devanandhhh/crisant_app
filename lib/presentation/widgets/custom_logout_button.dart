@@ -32,17 +32,21 @@ class CustomLogOutButton extends StatelessWidget {
               );
             },
             child: TextButton(
-              child: Text(AppLocalizations.of(context)!
-                            .logout, style: TextStyle(color: Colors.black)),
+              child: Text(AppLocalizations.of(context)!.logout,
+                  style: TextStyle(color: Colors.black)),
               onPressed: () => showDialog(
                 context: context,
                 builder: (ctx) => AlertDialog(
                   title: Text(
                     AppLocalizations.of(ctx)!.logout,
-                    style: abeezeeStyle(),
+                    style: abeezeeStyle(
+                        color: Colors.blueGrey,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
                   ),
-                  content: Text(AppLocalizations.of(ctx)!
-                            .logoutConfirmation,),
+                  content: Text(
+                    AppLocalizations.of(ctx)!.logoutConfirmation,
+                  ),
                   actions: [
                     TextButton(
                       onPressed: () {
@@ -65,9 +69,11 @@ class CustomLogOutButton extends StatelessWidget {
                       //   );
                       // },
                       child: Text(
-                        AppLocalizations.of(ctx)!
-                            .logout, // Localized "Log Out"
-                        style: TextStyle(color: Colors.black),
+                        AppLocalizations.of(ctx)!.logout, // Localized "Log Out"
+                        style: abeezeeStyle(
+                            color: Colors.blueGrey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15),
                       ),
                     ),
                   ],
@@ -81,7 +87,7 @@ Future<void> logout(
     BuildContext context, ConnectivityService connectivityService) async {
   // Clear data from SQLite
   await clearUser();
-
+  showCustomSnackBar(context, "Log out Successfully", Colors.green[400]!);
   // Navigate to login page and remove all previous routes
   Navigator.pushAndRemoveUntil(
     context,

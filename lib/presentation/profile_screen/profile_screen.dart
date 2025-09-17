@@ -3,6 +3,7 @@ import 'package:crisant_app/l10n/app_localizations.dart';
 import 'package:crisant_app/others/network_checker.dart';
 import 'package:crisant_app/presentation/bloc/localizations/locale_cubit.dart';
 import 'package:crisant_app/presentation/widgets/custom_snakbar.dart';
+import 'package:crisant_app/presentation/widgets/rolling_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,16 +23,10 @@ class ProfileScreen extends StatelessWidget {
           AppLocalizations.of(context)!.profile,
         ),
         actions: [
-          // ElevatedButton(onPressed: ()async{
-          //   final localeCubit = context.read<LocaleCubit>();
-          //   if (localeCubit.state.languageCode == 'en') {
-          //     localeCubit.changeLocale(const Locale('hi'));
-          //   } else {
-          //     localeCubit.changeLocale(const Locale('en'));
-          //   }
-
-          // }, child: Text("Change Language")),
-          PopupMenuButton<String>(
+          Row(
+            children: [
+              CustomThemeSwitch(),
+              PopupMenuButton<String>(
             icon: Icon(Icons.language),
             onSelected: (value) {
               if (value == 'en') {
@@ -51,6 +46,9 @@ class ProfileScreen extends StatelessWidget {
               ),
             ],
           ),
+            ],
+          )
+       
         ],
       ),
       body: Center(
@@ -77,25 +75,24 @@ class ProfileScreen extends StatelessWidget {
                     style: abeezeeStyle(),
                   ),
                   Text(
-                    user.name,
+                    user.name,style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal,color: Colors.black),
                   ),
                   Text(
                     AppLocalizations.of(context)!.userEmail,
                     style: abeezeeStyle(),
                   ),
-                  Text(user.email),
+                  Text(user.email,style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal,color: Colors.black),),
                 ],
               ),
-            ),
+            ), 
             CustomLogOutButton(
               connectivityService: connectivityService,
-            )
+            ),
+            
           ],
         ),
       ),
     );
   }
-  // void _changeLanguage(BuildContext context, Locale locale) {
-  //   MyApp.setLocale(context, locale); // You'll implement this method
-  // }
+ 
 }

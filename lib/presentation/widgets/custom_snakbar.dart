@@ -20,7 +20,7 @@ void showCustomSnackBar(BuildContext context, String message, Color? bgColor) {
   );
 }
 TextStyle abeezeeStyle({
-  double fontSize = 16,       // default font size
+  double fontSize = 20,       // default font size
   FontWeight fontWeight = FontWeight.normal, // default weight
   Color? color = Colors.black, // default color
   double letterSpacing = 0,   // default letter spacing

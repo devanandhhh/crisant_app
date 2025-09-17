@@ -5,6 +5,8 @@ import 'package:crisant_app/others/network_checker.dart';
 import 'package:crisant_app/others/notification_service.dart';
 import 'package:crisant_app/presentation/bloc/delete_user/delete_user_cubit.dart';
 import 'package:crisant_app/presentation/bloc/localizations/locale_cubit.dart';
+import 'package:crisant_app/presentation/bloc/theme_bloc/theme_bloc_cubit.dart';
+import 'package:crisant_app/presentation/bloc/toggle/view_toggle_cubit.dart';
 import 'package:crisant_app/presentation/splash_screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -54,34 +56,43 @@ class MyApp extends StatelessWidget {
         BlocProvider<DeleteUserCubit>(
           create: (_) => DeleteUserCubit(DeleteUserService()),
         ),
-        BlocProvider(create: (_) => LocaleCubit())
+        BlocProvider(create: (_) => LocaleCubit()),
+        BlocProvider(create: (_) => ThemeBlocCubit()),
+        BlocProvider(create: (_) => ViewToggleCubit())
         // Add more providers if needed
       ],
-      child: BlocBuilder<LocaleCubit, Locale>(
-        builder: (context, locale) {
-          return MaterialApp(
-            title: 'Crisant App',
-            locale: locale,
-            localizationsDelegates: [
-              AppLocalizations.delegate, // generated
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('en'),
-              Locale('hi'),
-            ],
-            home: SplashScreen(
-                connectivityService: connectivityService), // Pass here
-            debugShowCheckedModeBanner: false,
+      child: BlocBuilder<ThemeBlocCubit, bool>(
+        builder: (context, isDarkMode) {
+          return BlocBuilder<LocaleCubit, Locale>(
+            builder: (context, locale) {
+              return MaterialApp(
+                title: 'Crisant App',
+                locale: locale,
+                theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
+                localizationsDelegates: [
+                  AppLocalizations.delegate, // generated
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: const [
+                  Locale('en'),
+                  Locale('hi'),
+                ],
+
+                home: SplashScreen(
+                    connectivityService: connectivityService), // Pass here
+                debugShowCheckedModeBanner: false,
+              );
+            },
           );
         },
       ),
     );
   }
 }
-Future<void>handleBackgroundMessage(RemoteMessage message) async {
+
+Future<void> handleBackgroundMessage(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
   // You can perform additional actions here, like showing a notification
   // or updating local data based on the message content.
