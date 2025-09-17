@@ -1,19 +1,57 @@
 import 'package:crisant_app/data/model/user_model.dart';
+import 'package:crisant_app/l10n/app_localizations.dart';
+import 'package:crisant_app/others/network_checker.dart';
+import 'package:crisant_app/presentation/bloc/localizations/locale_cubit.dart';
+import 'package:crisant_app/presentation/widgets/custom_snakbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/sqflite/sqflite.dart';
-import '../sign_in_screen/sign_in_screen.dart';
-import '../splash_screen/splash_screen.dart';
+import '../widgets/custom_logout_button.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key, required this.user});
+  final ConnectivityService connectivityService;
+  const ProfileScreen(
+      {super.key, required this.user, required this.connectivityService});
 
   final UserModel user;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile"),
+        title: Text(
+          AppLocalizations.of(context)!.profile,
+        ),
+        actions: [
+          // ElevatedButton(onPressed: ()async{
+          //   final localeCubit = context.read<LocaleCubit>();
+          //   if (localeCubit.state.languageCode == 'en') {
+          //     localeCubit.changeLocale(const Locale('hi'));
+          //   } else {
+          //     localeCubit.changeLocale(const Locale('en'));
+          //   }
+
+          // }, child: Text("Change Language")),
+          PopupMenuButton<String>(
+            icon: Icon(Icons.language),
+            onSelected: (value) {
+              if (value == 'en') {
+                context.read<LocaleCubit>().changeLocale(Locale('en'));
+              } else if (value == 'hi') {
+                context.read<LocaleCubit>().changeLocale(Locale('hi'));
+              }
+            },
+            itemBuilder: (context) => [
+              const PopupMenuItem<String>(
+                value: 'en',
+                child: Text('English'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'hi',
+                child: Text('हिन्दी'),
+              ),
+            ],
+          ),
+        ],
       ),
       body: Center(
         child: Column(
@@ -34,62 +72,30 @@ class ProfileScreen extends StatelessWidget {
                         ? user.photoUrl
                         : "https://www.pngall.com/wp-content/uploads/5/Profile-PNG-High-Quality-Image.png"),
                   ),
-                  Text("User Name"),
-                  Text(user.name),
-                  Text("User Email"),
+                  Text(
+                    AppLocalizations.of(context)!.userName,
+                    style: abeezeeStyle(),
+                  ),
+                  Text(
+                    user.name,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.userEmail,
+                    style: abeezeeStyle(),
+                  ),
                   Text(user.email),
                 ],
               ),
             ),
-            Container(
-                decoration: BoxDecoration(
-                    color: Colors.red[300],
-                    borderRadius: BorderRadius.circular(10)),
-                child: TextButton(
-                    onPressed: () async {
-                      //calling Clear data from sqflite
-                      await clearUser();
-                      //push to login page
-                      knavigatorPushReplacement(
-                        
-                        context,
-                        SignInScreen(),
-                      );
-                    },
-                    child: TextButton(child: Text("Log Out",style: TextStyle(color: Colors.black)),
-                     onPressed: () => showDialog(
-                        context: context,
-                        builder: (ctx) => AlertDialog(
-                          title: Text("Log Out"),
-                          content: Text("Are you sure you want to log out?"),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(ctx).pop();
-                              },
-                              child: Text("Cancel"),
-                            ),
-                            TextButton(
-                              onPressed: () async {
-                                //calling Clear data from sqflite
-                                await clearUser();
-                                //push to login page
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => SignInScreen())
-                                  , (route) => false,
-                                );
-                              },
-                              child: Text("Log Out"),
-                            ),
-                          ],
-                        ),
-                      ),
-                      
-                    )))
+            CustomLogOutButton(
+              connectivityService: connectivityService,
+            )
           ],
         ),
       ),
     );
   }
+  // void _changeLanguage(BuildContext context, Locale locale) {
+  //   MyApp.setLocale(context, locale); // You'll implement this method
+  // }
 }

@@ -1,0 +1,13 @@
+{
+  "@@locale": "en",
+  "appTitle": "Crisant App",
+  "welcome": "Welcome",
+  "logout": "Logout",
+  "cancel": "Cancel",
+  "error": "Error",
+  "noMoreUsers": "No more users",
+  "profile": "Profile",
+  "userName": "User Name",
+  "userEmail": "User Email",
+  "logoutConfirmation": "Are you sure you want to log out?"
+}

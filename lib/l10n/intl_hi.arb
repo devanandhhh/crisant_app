@@ -1,0 +1,13 @@
+{
+  "@@locale": "hi",
+  "appTitle": "क्रिसेंट ऐप",
+  "welcome": "स्वागत है",
+  "logout": "लॉग आउट",
+  "cancel": "रद्द करें",
+  "error": "त्रुटि",
+  "noMoreUsers": "कोई और उपयोगकर्ता नहीं",
+  "profile": "प्रोफ़ाइल",
+  "userName": "उपयोगकर्ता नाम",
+  "userEmail": "उपयोगकर्ता ईमेल",
+  "logoutConfirmation": "क्या आप लॉग आउट करना चाहते हैं?"
+}

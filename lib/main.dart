@@ -1,27 +1,79 @@
+import 'package:crisant_app/data/api/get_all_user_service.dart';
 import 'package:crisant_app/firebase_options.dart';
+import 'package:crisant_app/l10n/app_localizations.dart';
+import 'package:crisant_app/others/network_checker.dart';
+import 'package:crisant_app/presentation/bloc/delete_user/delete_user_cubit.dart';
+import 'package:crisant_app/presentation/bloc/localizations/locale_cubit.dart';
 import 'package:crisant_app/presentation/splash_screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'data/api/delete_user_service.dart';
+import 'data/api/update_user_service.dart';
 import 'data/sqflite/sqflite.dart';
+import 'presentation/bloc/pagination/pagination_cubit.dart';
+import 'presentation/bloc/update_user/update_user_cubit.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize connectivity service once
+  final connectivityService = ConnectivityService();
+  await connectivityService.checkInitialConnection();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-   await initializeDatabase();
-  runApp(const MyApp());
+  await initializeDatabase();
+
+  runApp(MyApp(connectivityService: connectivityService)); // Pass it here
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final GetAllUserService userService = GetAllUserService();
+  final ConnectivityService connectivityService;
 
-  // This widget is the root of your application.
+  MyApp(
+      {super.key,
+      required this.connectivityService}); // Accept it in constructor
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Crisant app',
-      home: SplashScreen(),
-      debugShowCheckedModeBanner: false,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<PaginationCubit>(
+          create: (_) => PaginationCubit(userService)..fetchUsers(),
+        ),
+        BlocProvider<UpdateUserCubit>(
+          create: (_) => UpdateUserCubit(UpdateUserService()),
+        ),
+        BlocProvider<DeleteUserCubit>(
+          create: (_) => DeleteUserCubit(DeleteUserService()),
+        ),
+        BlocProvider(create: (_) => LocaleCubit())
+        // Add more providers if needed
+      ],
+      child: BlocBuilder<LocaleCubit, Locale>(
+        builder: (context, locale) {
+          return MaterialApp(
+            title: 'Crisant App',
+            locale: locale,
+            localizationsDelegates: [
+              AppLocalizations.delegate, // generated
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en'),
+              Locale('hi'),
+            ],
+            home: SplashScreen(
+                connectivityService: connectivityService), // Pass here
+            debugShowCheckedModeBanner: false,
+          );
+        },
+      ),
     );
   }
 }

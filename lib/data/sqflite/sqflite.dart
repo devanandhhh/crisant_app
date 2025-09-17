@@ -39,3 +39,24 @@ Future<UserModel?> getCurrentUser() async {
 Future<void> clearUser() async {
   await _db.delete('user');
 }
+
+void fetchAndShowFirstUser() async {
+  // Get all users
+  List<Map<String, dynamic>> users = await getAllUsers();
+
+  if (users.isNotEmpty) {
+    // Access the first user
+    Map<String, dynamic> firstUser = users[0];
+
+    // Get the fields
+    String name = firstUser['name'];
+    String email = firstUser['email'];
+    String photoUrl = firstUser['photoUrl'];
+
+    print("Name: $name");
+    print("Email: $email");
+    print("Photo URL: $photoUrl");
+  } else {
+    print("No users found.");
+  }
+}
