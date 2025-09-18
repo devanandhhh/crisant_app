@@ -24,7 +24,8 @@ class SplashScreen extends StatelessWidget {
         return;
       }
 
-      final sharedPrefz = await SharedPreference.getboolValue();
+      bool sharedPrefz = await SharedPreference.getboolValue();
+      print('shared pref is $sharedPrefz');
       if (sharedPrefz != true) {
         knavigatorPushReplacement(
             context,

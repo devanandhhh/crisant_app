@@ -1,3 +1,4 @@
+import 'package:crisant_app/data/shared_preference/shared_preference.dart';
 import 'package:crisant_app/l10n/app_localizations.dart';
 import 'package:crisant_app/others/network_checker.dart';
 import 'package:crisant_app/presentation/sign_in_screen/sign_in_screen.dart';
@@ -23,6 +24,8 @@ class CustomLogOutButton extends StatelessWidget {
             onPressed: () async {
               //calling Clear data from sqflite
               await clearUser();
+              //clear shared preference
+              await SharedPreference.saveboolValue(false);
               //push to login page
               knavigatorPushReplacement(
                 context,

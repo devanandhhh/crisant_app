@@ -1,3 +1,4 @@
+import 'package:crisant_app/data/shared_preference/shared_preference.dart';
 import 'package:crisant_app/l10n/app_localizations.dart';
 import 'package:crisant_app/others/network_checker.dart';
 
@@ -21,6 +22,8 @@ import '../widgets/custom_snakbar.dart';
 
 class HomeScreen extends StatefulWidget {
   final ConnectivityService connectivityService;
+
+  
   const HomeScreen({
     super.key,
     required this.connectivityService,
@@ -85,7 +88,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (!snapshot.hasData) {
                   return IconButton(
                     icon: Icon(Icons.logout),
-                    onPressed: () {
+                    onPressed: () async {
+                       await clearUser();
+                      await SharedPreference.saveboolValue(false);
+                      
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
@@ -215,7 +221,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
-
-
