@@ -2,15 +2,31 @@
 
 A new Flutter project.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+Splash Screen
+Sign In Screen (Google Sign-In with Firebase Auth)
+Home Screen
+Profile Screen
+View Profile Screen
+Dark Theme Support 🌙
+Localization for English 🇬🇧 and Hindi 🇮🇳
 
-A few resources to get you started if this is your first Flutter project:
+## Dependencies Added
+firebase_core
+firebase_auth
+sign_in_button
+google_sign_in
+shared_preferences
+sqflite
+gap
+google_fonts
+http
+flutter_bloc
+connectivity_plus
+internet_connection_checker
+flutter_localizations
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+intl
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+firebase_messaging
