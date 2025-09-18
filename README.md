@@ -4,7 +4,7 @@ A new Flutter project.
 
 ## Features
 
-Splash Screen
+# Splash Screen
 Sign In Screen (Google Sign-In with Firebase Auth)
 Home Screen
 Profile Screen
